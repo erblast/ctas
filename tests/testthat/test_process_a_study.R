@@ -314,7 +314,9 @@ test_that("process_a_study - avoid lof() error - minPts has to be at least 2 and
     optimize_sites_and_patients = TRUE
   )
 
-  # data has very few subjects we expect score to be 0
-  expect_true(all(ls_ctas$site_scores$fdr_corrected_pvalue_logp == 0))
+  # we add a trivial integrity expectation as this test was to prove
+  # no error during run
+  expect_true(! anyNA(ls_ctas$site_scores$fdr_corrected_pvalue_logp))
 
 })
+

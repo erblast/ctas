@@ -1,12 +1,21 @@
 
 stat.test <- function(x, y, alternative) {
+
+  if (length(x) >= length(y)) {
+    large_set <- x
+    small_set <- y
+  } else{
+    large_set <- y
+    small_set <- x
+  }
+
   stat <- tryCatch({
-    if(length(y) == 1) {
-      t.test(x, mu = y, alternative = alternative)
+    if(length(small_set) == 1) {
+      t.test(large_set, mu = small_set, alternative = alternative)
     } else {
-      t.test(x, y, alternative = alternative)
+      t.test(large_set, small_set, alternative = alternative)
     }},
-    error = function(e) ks.test(x, y, alternative = alternative)
+    error = function(e) ks.test(small_set, large_set, alternative = alternative)
   )
 }
 
