@@ -1,9 +1,14 @@
 
 stat.test <- function(x, y, alternative) {
 
-  stat <- wilcox.test(x = x, y = y, alternative = alternative)
+  w_stat <- wilcox.test(x = x, y = y, alternative = alternative)
+  k_stat <- ks.test(x = x, y = y, alternative = alternative)
 
-  return(stat)
+  if (w_stat$p.value < k_stat$p.value) {
+    return(w_stat)
+  } else {
+    return(k_stat)
+  }
 }
 
 
